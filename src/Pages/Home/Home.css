@@ -1,0 +1,31 @@
+.PaginationBox{
+    display: flex;   
+    justify-content: center;
+}
+.CountryPanel{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 100%;
+    max-height: 100%;
+}
+.Panel{
+    margin-top: 1%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 90%;
+    max-height: 3%;
+}
+.FindPanel{
+    margin-left: 20%;
+    width: 40%;
+}
+.ListName{
+    margin-left: 2%;
+    font-size: 2rem;
+    color: rgb(79, 209, 246);
+}
+.MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input {
+    background: #ffffff;
+  }
