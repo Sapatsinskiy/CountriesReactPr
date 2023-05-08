@@ -39,11 +39,15 @@ function About({allCountry}) {
             <img className='flag' src={findCountry.flags.png} alt="" />
           </div>
           <div className='coatOfArmsBlock block'>
-            <div className='cardInfoTextLow'>
-            Сountry symbol:
+              <div className='cardInfoTextLow'>
+                Coat of arms:
+              </div>
+              {findCountry.coatOfArms?.png ? (
+                <img className='coatOfArms' src={findCountry.coatOfArms.png} alt="" /> 
+              ) : (
+                <div className='cardInfoTextHight'>Nothing</div>
+              )}
             </div>
-            <img className='coatOfArms' src={findCountry.coatOfArms.png} alt="" /> 
-          </div>
         </div>
         
         <div className='Rotate'>
