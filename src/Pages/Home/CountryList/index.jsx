@@ -6,8 +6,8 @@ function CountryList({allCountry}){
 
   const [selectedCountry, setSelectedCountry] = useState(null);
 
-  const handleMouseEnter = (id) => {
-    setSelectedCountry(allCountry.find((country) => country.id === id));
+  const handleMouseEnter = (item) => {
+    setSelectedCountry(item);
   }
   const handleMouseLeave = () => {
     setSelectedCountry(null);
@@ -30,7 +30,7 @@ function CountryList({allCountry}){
             key={item.id}
             to={`/about/${item.id}`}
             className={`countryItem ${selectedCountry?.id === item.id ? 'active' : ''}`}
-            onMouseEnter={() => handleMouseEnter(item.id)}
+            onMouseEnter={() => handleMouseEnter(item)}
             onMouseLeave={() => handleMouseLeave()}>
             <div className ='leftItem'>
               <div className='index'>{item.id}</div>
