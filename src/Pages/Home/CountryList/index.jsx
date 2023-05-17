@@ -2,7 +2,7 @@ import './CountryList.css'
 import CountryCard from './CountryCard';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-function CountryList({allCountry}){
+function CountryList({sortedCountries,countriesPerPage, currentPage}){
 
   const [selectedCountry, setSelectedCountry] = useState(null);
 
@@ -13,7 +13,7 @@ function CountryList({allCountry}){
     setSelectedCountry(null);
   }
 
-    if(allCountry.length===0){
+    if(!Array.isArray(sortedCountries)||sortedCountries.length===0){
         return(
           <div>
            loading...
@@ -21,11 +21,19 @@ function CountryList({allCountry}){
         )
       }
 
+      const lastCountriesIndex = currentPage * countriesPerPage
+      const firstCountriesIndex = lastCountriesIndex - countriesPerPage
+    
+      const currentCountries = sortedCountries.slice(
+        firstCountriesIndex,
+        lastCountriesIndex
+      )
+
     return (
     <div className='countryPanel'>
       
         <div className="countryList">
-        {allCountry.map((item)=>(
+        {currentCountries.map((item)=>(
           <Link
             key={item.id}
             to={`/about/${item.id}`}

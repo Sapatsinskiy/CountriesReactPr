@@ -1,31 +1,91 @@
-.PaginationBox{
-    display: flex;   
-    justify-content: center;
+body{
+  height: 100%;
 }
-.CountryPanel{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    max-width: 100%;
-    max-height: 100%;
+.PaginationBox {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
-.Panel{
-    margin-top: 1%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    max-width: 90%;
-    max-height: 3%;
+.CountryPanel {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 100%;
+  min-height: 100%;
 }
-.FindPanel{
-    margin-left: 20%;
-    width: 40%;
+.ListPanel{
+  height:680px;
 }
-.ListName{
-    margin-left: 2%;
-    font-size: 2rem;
-    color: rgb(79, 209, 246);
+.Panel {
+  margin-top: 1%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  max-height: 15%;
 }
-.MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input {
-    background: #ffffff;
-  }
+.underPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+  height: 100%;
+}
+.FindPanel {
+  width: 20%;
+  padding: 0.5%;
+}
+.SPanel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.ListName {
+  margin-left: 2%;
+  font-size: 2rem;
+  color: rgb(79, 209, 246);
+}
+.MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"]
+  .MuiAutocomplete-input {
+  background: #ffffff;
+}
+.defButton{
+  height: 100%;
+  border-radius: 25px;
+  background: rgb(40, 54, 73);
+  padding: 0.5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: aliceblue;
+  cursor: pointer;
+}
+.sortPanel{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  height: 10%;
+  margin-top: 0.5%;
+}
+.buttonS {
+  width: 10%;
+  margin-left: 0.5%;
+}
+.buttonCounries {
+  width: 15%;
+  margin-left: 0.5%;
+}
+.hide {
+  display: none;
+}
+.buttonRegion{
+    width: 12%;
+    padding: 0.3%;
+    margin-left: 0.5%;
+}
+.activeBut{
+background: rgb(55, 74, 100);
+}

@@ -18,6 +18,7 @@ function AppRouter() {
         })
 
         setAllCountry(resultAddId)
+
       }
       catch{
         setAllCountry('Error')
