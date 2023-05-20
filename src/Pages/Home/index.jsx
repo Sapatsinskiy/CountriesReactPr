@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CountryList from "./CountryList";
 import Pagination from "@mui/material/Pagination";
 import "./Home.css";
@@ -41,6 +41,7 @@ function Home({ allCountry }) {
     Number(sessionStorage.getItem("pageNum"))
   );
   const [countriesPerPage] = useState(10);
+  const [regions, setRegion] = useState([]);
 
   const nextListPage = (e, p) => {
     sessionStorage.setItem("pageNum", p);
@@ -76,7 +77,7 @@ function Home({ allCountry }) {
       return 0;
     });
     setSortedCountries(tmp);
-    setCheker15(false)
+    setCheker15(false);
   };
   const sort15_2 = () => {
     const tmp = sortedCoutries.sort(function (a, b) {
@@ -89,22 +90,22 @@ function Home({ allCountry }) {
       return 0;
     });
     setSortedCountries(tmp);
-    setCheker15(true)
+    setCheker15(true);
   };
   const sort15 = () => {
-    setChekerAY(null)
-    if(cheker15==null){
-      setCheker15(true)
-      sort15_1()
+    setChekerAY(null);
+    if (cheker15 == null) {
+      setCheker15(true);
+      sort15_1();
     }
     if (cheker15 == true) {
       sort15_1();
     }
-    if(cheker15==false){
+    if (cheker15 == false) {
       sort15_2();
     }
   };
-  const sortAB_1 = ()=>{
+  const sortAB_1 = () => {
     const tmp = sortedCoutries.sort(function (a, b) {
       if (a.name.common < b.name.common) {
         return -1;
@@ -116,17 +117,17 @@ function Home({ allCountry }) {
     });
     setSortedCountries(tmp);
     setChekerAY(false);
-  }
+  };
   const sortAB = () => {
-    setCheker15(null)
-    if(chekerAY==null){
-      setChekerAY(true)
-      sortAB_1()
+    setCheker15(null);
+    if (chekerAY == null) {
+      setChekerAY(true);
+      sortAB_1();
     }
     if (chekerAY == true) {
-      sortAB_1()
-    } 
-    if(chekerAY==false){
+      sortAB_1();
+    }
+    if (chekerAY == false) {
       const tmp = sortedCoutries.sort(function (a, b) {
         if (a.name.common > b.name.common) {
           return -1;
@@ -140,15 +141,19 @@ function Home({ allCountry }) {
       setChekerAY(true);
     }
   };
-  const regions = allCountry.reduce((acc, country) => {
-    const { continents, subregion } = country;
-    if (acc[continents]) {
-      acc[continents].add(subregion);
-    } else {
-      acc[continents] = new Set([subregion]);
-    }
-    return acc;
-  }, {});
+  useEffect(() => {
+    const tmp = allCountry.reduce((acc, country) => {
+      const { continents, subregion } = country;
+      if (acc[continents]) {
+        acc[continents].add(subregion);
+      } else {
+        acc[continents] = new Set([subregion]);
+      }
+      return acc;
+    }, {});
+    setRegion(tmp);
+  }, [allCountry]);
+
   const SortByContinent = (item) => {
     if (currentContinent != item) {
       setCurrentContinent(item);
@@ -217,62 +222,69 @@ function Home({ allCountry }) {
     <div className="CountryPanel">
       <div className="ListPanel">
         <div className="Panel">
-          <div className="SPanel">
-            <div className="ListName">Country List:</div>
-            <div className="FindPanel">
-              <Autocomplete
-                value={selectedCountry}
-                onChange={handleCountryChange}
-                options={allCountry}
-                getOptionLabel={(option) => option.name.common}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Search country"
-                    variant="outlined"
-                  />
-                )}
-              />
-            </div>
-            <div className="underPanel">
-              <div className="sortPanel">
-              <div className={`defButton buttonS ${chekerAY != null ? "activeBut" : ""}`}>
-                  <div onClick={() => sortAB()}>
-                    {chekerAY ? "Sort A-Y" : "Sort Y-A"}
-                  </div>
-                </div>
-                <div className={`defButton buttonS ${cheker15 != null ? "activeBut" : ""}`}>
-                  <div onClick={() => sort15()}>
-                    {cheker15 ? "Sort ↑" : "Sort ↓"}
-                  </div>
-                </div>
-                <div className="defButton buttonS">
-                  <div onClick={() => ResetAll()}>Reset all</div>
-                </div>
-              </div>
-              <div className="sortPanel">
-                {Object.keys(regions).map((item) => (
-                  <div
-                    className={`defButton buttonCounries ${
-                      activeContinent === item ? "activeBut" : ""
-                    }`}
-                    key={item}
-                    onClick={() => SortByContinent(item)}
-                  >
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="ListName">Country List:</div>
+          <div className="FindPanel">
+            <Autocomplete
+              value={selectedCountry}
+              onChange={handleCountryChange}
+              options={allCountry}
+              getOptionLabel={(option) => option.name.common}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Search country"
+                  variant="outlined"
+                />
+              )}
+            />
           </div>
-          {currentContinent && (
+        </div>
+        <div className="bodyPanel">
+          <CountryList
+            sortedCountries={sortedCoutries}
+            countriesPerPage={countriesPerPage}
+            currentPage={currentPage}
+          />
+          <div className="underPanel">
             <div className="sortPanel">
+            <div
+                className={`defButton bText ${
+                  chekerAY != null ? "activeBut" : ""
+                }`} onClick={() => sortAB()}
+              >
+                  {chekerAY ? "Sort A-Y" : "Sort Y-A"}
+              </div>
+              <div
+                className={`defButton bText ${
+                  cheker15 != null ? "activeBut" : ""
+                }`} onClick={() => sort15()}
+              >
+                  {cheker15 ? "Sort ↑" : "Sort ↓"}
+              </div>
+              <div className="defButton bText reset" onClick={() => ResetAll()}>
+                Reset all
+              </div>
+              {Object.keys(regions).map((item) => (
+                <div
+                  className={`defButton bText ${
+                    activeContinent === item ? "activeBut" : ""
+                  }`}
+                  key={item}
+                  onClick={() => SortByContinent(item)}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+            
+            {currentContinent && (
+            <div className="sortPanel activePan">
               {Array.from(regions[currentContinent]).map((subregion) => {
                 if (currentContinent != "Antarctica") {
                   return (
                     <div
                       onClick={() => SortByRegion(subregion)}
-                      className={`defButton buttonRegion ${
+                      className={`defButton bText specBut ${
                         activeRegion === subregion ? "activeBut" : ""
                       }`}
                       key={subregion}
@@ -285,13 +297,8 @@ function Home({ allCountry }) {
               })}
             </div>
           )}
+          </div>
         </div>
-
-        <CountryList
-          sortedCountries={sortedCoutries}
-          countriesPerPage={countriesPerPage}
-          currentPage={currentPage}
-        />
       </div>
       <div className="PaginationBox">
         <StyledPagination

@@ -14,10 +14,10 @@
     justify-content: space-between;
     border-radius: 25px;
     background: rgb(40, 54, 73);
-    padding: 1%;
     width: 90%;
     height: 1%;
     border: solid 2px rgb(79, 209, 246);
+    padding: 0.5% !important;
 }
 .ButtonCustom{
     display: flex;
@@ -34,12 +34,12 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 1%;
+    margin-top: 0.6%;
     border-radius: 25px;
     background: rgb(40, 54, 73);
     padding: 1%;
     width: 65%;
-    height: 90%;
+    height: 70%;
     border: solid 2px rgb(79, 209, 246);
 }
 .block{
@@ -95,4 +95,57 @@
     justify-content: center;
     align-items: center;
 }
-
+.cardInfoTextHight{
+  font-size: 18px;
+  padding: 2px;
+  text-align: center;
+}
+.cardInfoTextLow{
+  color: rgb(79, 209, 246);
+  font-size: 16px;
+  padding: 2px;
+}
+@media (max-width: 1080px){
+    .Rotate{
+        flex-direction: column;
+    }
+    .infoBlock{
+        width: 100%;
+        padding: 0%;
+    }
+  }
+  @media (max-width: 700px){
+    .cardInfoTextLow{
+        font-size: 14px;
+      }
+      .cardInfoTextHight{
+        font-size: 16px;
+        padding: 2px;
+      }
+  }
+  @media (max-width: 600px){
+    .cardInfoTextLow{
+        font-size: 11px;
+      }
+      .cardInfoTextHight{
+        font-size: 14px;
+        padding: 2px;
+      }
+  }
+  @media (max-width: 500px){
+    .cardInfoTextLow{
+        font-size: 8px;
+      }
+      .cardInfoTextHight{
+        font-size: 12px;
+        padding: 2px;
+      }
+      .infoPanel{
+        margin-top: 6%;
+    }
+  }
+  @media (max-width: 350px){
+    .cardInfoTextLow{
+        font-size: 6px;
+      }
+  }

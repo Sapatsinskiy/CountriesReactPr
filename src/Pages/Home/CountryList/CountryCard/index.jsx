@@ -8,7 +8,7 @@ function CountryCard({ country }) {
             <p>Country flag:</p>
         </div>
         <div className='cardFlag'>
-            <img src={country.flags.png} alt="" />
+            <img className='Flag' src={country.flags.png} alt="" />
         </div>
         <div className='cardInfo'>          
           <div className='cardInfoTextLow'> Country name: </div>

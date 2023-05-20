@@ -9,14 +9,19 @@
     color: aliceblue;
     border-radius: 25px;
     border: solid 2px rgb(79, 209, 246);
-    padding: 2%;
+    padding: 3%;
 }
 .cardFlag{
     display: flex;
     justify-content: center;
-    width: 95%;
+    width: 85%;
     height: auto;
     
+}
+.Flag{
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
 }
 .cardInfo{
     display: flex;
@@ -26,5 +31,5 @@
     width: 100%;
     background: rgb(55, 74, 100);
     border-radius: 25px;
-    padding: 2%;
+    padding: 1%;
 }

@@ -1,16 +1,86 @@
 body {
+  max-width: 100%;
+  max-height: 100%;
   margin: 0;
   background: rgb(87, 98, 114);
 }
 a {
   text-decoration: none;
 }
-.cardInfoTextHight{
-  font-size: 18px;
-  padding: 2px;
-}
-.cardInfoTextLow{
+
+.ListName {
+  margin-left: 2%;
   color: rgb(79, 209, 246);
-  font-size: 16px;
-  padding: 2px;
+  font-size: 36px;
+}
+.rightItem{
+  font-size: 20px;
+}
+.bText{
+  font-size: 14px;
+}
+@media (max-width: 1250px){
+  .rightItem{
+    font-size: 17px;
+  }
+}
+@media (max-width: 1080px){
+  .rightItem{
+    font-size: 16px;
+  }
+  .bText{
+    font-size: 12px;
+  }
+}
+@media (max-width: 1000px){
+  .rightItem{
+    font-size: 14px;
+  }
+  .bText{
+    font-size: 10px;
+  }
+}
+@media (max-width: 875px){
+  .rightItem{
+    font-size: 12px;
+  }
+}
+@media (max-width: 800px){
+  .rightItem{
+    font-size: 16px;
+  }
+}
+@media (max-width: 660px){
+  .rightItem{
+    font-size: 14px;
+  }
+  .ListName {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 28px;
+  }
+}
+@media (max-width: 505px){
+  .rightItem{
+    font-size: 10px;
+  }
+  .ListName {
+    font-size: 24px;
+  }
+  .bText{
+    font-size: 6px;
+  }
+}
+@media (max-width: 370px){
+  .rightItem{
+    font-size: 10px;
+  }
+  .ListName {
+    font-size: 22px;
+  }
+  .bText{
+    font-size: 6px;
+  }
 }

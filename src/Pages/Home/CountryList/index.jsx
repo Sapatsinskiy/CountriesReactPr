@@ -40,14 +40,13 @@ function CountryList({sortedCountries,countriesPerPage, currentPage}){
             className={`countryItem ${selectedCountry?.id === item.id ? 'active' : ''}`}
             onMouseEnter={() => handleMouseEnter(item)}
             onMouseLeave={() => handleMouseLeave()}>
-            <div className ='leftItem'>
+            <div className ='leftItem rightItem'>
               <div className='index'>{item.id}</div>
               <img className='leftItemImg' src={item.flags.png} alt="" />
             </div>
             <div className='rightItem'> {item.name.common}</div>
           </Link>
         ))}              
-          {/* <Link to = '/about'>About</Link> */}
         </div>
     <div className='countryCard'>
     {selectedCountry && <CountryCard country={selectedCountry} />}    
