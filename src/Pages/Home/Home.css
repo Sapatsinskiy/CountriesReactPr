@@ -47,6 +47,11 @@ body{
   width: 40%;
   padding: 0.5%;
 }
+.minPan{
+  display: flex;
+  width: 95%;
+  flex-direction: row;
+}
 .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"]
   .MuiAutocomplete-input {
   background: #ffffff;
@@ -104,6 +109,11 @@ background: rgb(55, 74, 100) !important;
   }
   .defButton{
     height: 15px;
+  }
+}
+@media (max-width: 550px){
+  .underPanel {
+    max-height: 70%;
   }
 }
 @media(max-height:700px){

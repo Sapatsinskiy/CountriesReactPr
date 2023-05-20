@@ -247,7 +247,8 @@ function Home({ allCountry }) {
           />
           <div className="underPanel">
             <div className="sortPanel">
-            <div
+              <div className="minPan">
+              <div
                 className={`defButton bText ${
                   chekerAY != null ? "activeBut" : ""
                 }`} onClick={() => sortAB()}
@@ -261,6 +262,8 @@ function Home({ allCountry }) {
               >
                   {cheker15 ? "Sort ↑" : "Sort ↓"}
               </div>
+              </div>
+            
               <div className="defButton bText reset" onClick={() => ResetAll()}>
                 Reset all
               </div>
