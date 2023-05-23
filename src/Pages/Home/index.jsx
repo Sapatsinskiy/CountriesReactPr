@@ -1,6 +1,5 @@
 import {useState, useEffect } from "react";
 import SortPanel from "../../Components/SortPanel";
-import CountryList from "../../Components/CountryList";
 import Pagination from "@mui/material/Pagination";
 import "./Home.css";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -104,19 +103,15 @@ function Home() {
             />
           </div>
         </div>
-        <div className="bodyPanel">
-          <CountryList
-            sortedCountries={sortedCountries}
-            countriesPerPage={countriesPerPage}
-            currentPage={currentPage}
-          />
           <SortPanel
             allCountry={allCountry}
             sortedCountries={sortedCountries}  
             setSortedCountries={setSortedCountries}                     
             setCurrentPage={setCurrentPage}
+
+            countriesPerPage={countriesPerPage}
+            currentPage={currentPage}
           />
-        </div>
       </div>
       <div className="PaginationBox">
         <StyledPagination

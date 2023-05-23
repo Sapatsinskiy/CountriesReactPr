@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import SortPanel from "../../Components/SortPanel";
-import CountryList from "../../Components/CountryList";
 import Pagination from "@mui/material/Pagination";
 import "/src/Pages/Home/Home.css";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -60,7 +59,6 @@ function LangugePage() {
     };
     fetchCountryData();
   }, []);
-
   useEffect(() => {
     if (allCountry.length > 0) {
       const filtered = allCountry.filter((country) => {
@@ -105,7 +103,7 @@ function LangugePage() {
             <Autocomplete
               value={selectedCountry}
               onChange={handleCountryChange}
-              options={filteredCountries}
+              options={allCountry}
               getOptionLabel={(option) => option.name.common}
               renderInput={(params) => (
                 <TextField
@@ -126,19 +124,18 @@ function LangugePage() {
             Go Home
           </div>
         </div>
-        <div className="bodyPanel">
-          <CountryList
-            sortedCountries={sortedCountries}
+
+
+          <SortPanel
+            allCountry={allCountry}
+            sortedCountries={sortedCountries}  
+            setSortedCountries={setSortedCountries}                     
+            setCurrentPage={setCurrentPage}
+
             countriesPerPage={countriesPerPage}
             currentPage={currentPage}
           />
-          <SortPanel
-            allCountry={filteredCountries}
-            sortedCountries={sortedCountries}
-            setSortedCountries={setSortedCountries}
-            setCurrentPage={setCurrentPage}
-          />
-        </div>
+
       </div>
       <div className="PaginationBox">
         <StyledPagination

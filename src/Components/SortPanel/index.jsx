@@ -1,11 +1,14 @@
 import { useState,useEffect} from "react";
 import "/src/Pages/Home/Home.css";
+import CountryList from "../CountryList";
 
 function SortPanel({
   allCountry,
   sortedCountries,
   setSortedCountries,
   setCurrentPage,
+  countriesPerPage,
+  currentPage
 }) {
   const [chekerAY, setChekerAY] = useState(null);
   const [cheker15, setCheker15] = useState(null);
@@ -176,7 +179,13 @@ function SortPanel({
   };
 
   return (
-    <div className="underPanel">
+    <div className="bodyPanel">
+      <CountryList
+            sortedCountries={sortedCountries}
+            countriesPerPage={countriesPerPage}
+            currentPage={currentPage}
+          />
+              <div className="underPanel">
       <div className="sortPanel">
         <div className="minPan">
         <div
@@ -231,6 +240,8 @@ function SortPanel({
         </div>
       )}
     </div>
+    </div>
+
   );
 }
 
