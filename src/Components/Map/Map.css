@@ -5,5 +5,9 @@
   .map_container {
     display: flex;
     justify-content: center;
-    padding: 20px;
+  }
+  @media (max-width: 350px){
+    .map {
+      height: 30vh;
+    }
   }

@@ -12,8 +12,7 @@ function Map({element}){
       lat: element.latlng[0],
       lng: element.latlng[1],
     };
-    console.log(element.latlng[0])
-  
+
     return (
       <div className="map_container">
         {isLoaded && (
