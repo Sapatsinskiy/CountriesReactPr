@@ -127,7 +127,7 @@ function LangugePage() {
 
 
           <SortPanel
-            allCountry={allCountry}
+            allCountry={filteredCountries}
             sortedCountries={sortedCountries}  
             setSortedCountries={setSortedCountries}                     
             setCurrentPage={setCurrentPage}
