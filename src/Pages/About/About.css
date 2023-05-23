@@ -29,6 +29,23 @@
     cursor: pointer;
     padding: 0.3%;
 }
+.buttonLan{
+  width: 20%;
+  height: 2%;
+  border-radius: 20px;
+  background: rgb(40, 54, 73);
+  padding: 1%;
+  margin: 1%;
+  cursor: pointer;
+  color: aliceblue;
+}
+.butLanCol{
+  width: 30% !important;
+}
+.blockMin{
+display: flex;
+flex-wrap: wrap;
+}
 .infoPanel{
     display: flex;
     justify-content: center;
@@ -68,7 +85,6 @@
     max-width: 100%;
     height: 60%;
     border-radius: 25px;
-    
 }
 .coatOfArmsBlock{   
     margin-left: 5%;
@@ -85,8 +101,11 @@
     padding: 1%;
 }
 .specBlock{
-    margin-top: 1%;
+  margin-top: 1%;
+  max-width: 100%;
+  max-height: 10%;
 }
+
 .Rotate{
     width: 100%;
     height: 100%;

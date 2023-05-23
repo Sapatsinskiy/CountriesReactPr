@@ -1,13 +1,14 @@
-import {useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import SortPanel from "../../Components/SortPanel";
 import CountryList from "../../Components/CountryList";
 import Pagination from "@mui/material/Pagination";
-import "./Home.css";
+import "/src/Pages/Home/Home.css";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { styled } from "@mui/material/styles";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import axios from "axios";
+
 const StyledPagination = styled(Pagination)(() => ({
   "& .MuiPaginationItem-root": {
     color: "aliceblue",
@@ -25,27 +26,26 @@ const StyledPagination = styled(Pagination)(() => ({
   },
 }));
 
-function Home() {
-  const[allCountry, setAllCountry] = useState([])
+function LangugePage() {
+  const { selectedLanguage } = useParams();
+  const [allCountry, setAllCountry] = useState([]);
   const [sortedCountries, setSortedCountries] = useState([]);
   const [currentPage, setCurrentPage] = useState(
-    Number(sessionStorage.getItem("pageNum"))
+    Number(sessionStorage.getItem("NewPageNum"))
   );
-  const [countriesPerPage] = useState(10);
+    if (currentPage==0) {
+      setCurrentPage(1)
+      sessionStorage.setItem("NewPageNum", 1);
+    }
+
 
   const nextListPage = (e, p) => {
-    sessionStorage.setItem("pageNum", p);
+    sessionStorage.setItem("NewPageNum", p);
     setCurrentPage(p);
   };
 
-  let countCountries = 0;
-  if (sortedCountries.length === 0) {
-    countCountries = Math.ceil(allCountry.length / 10);
-  } else {
-    countCountries = Math.ceil(sortedCountries.length / 10);
-  }
-
-
+  const [countriesPerPage] = useState(10);
+  const [filteredCountries, setFilteredCountries] = useState([]);
 
   const navigate = useNavigate();
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -55,44 +55,59 @@ function Home() {
     }
     setSelectedCountry(newValue);
   };
+
   useEffect(() => {
     const fetchCountryData = async () => {
       try {
-        const result = await axios.get('http://46.101.96.179/all')
+        const result = await axios.get("http://46.101.96.179/all");
 
         const resultAddId = result.data.map((item, i) => {
-          return{...item, id: i+1 }
-        })
+          return { ...item, id: i + 1 };
+        });
 
-        setAllCountry(resultAddId)
-
+        setAllCountry(resultAddId);
+      } catch {
+        setAllCountry("Error");
       }
-      catch{
-        setAllCountry('Error')
-      }   
-    }
-    fetchCountryData()
-  }, [])
+    };
+    fetchCountryData();
+  }, []);
 
-  useEffect(()=>{
-    if (sortedCountries.length === 0) {
-      setSortedCountries(allCountry);
+  useEffect(() => {
+    if (allCountry.length > 0) {
+      const filtered = allCountry.filter((country) => {
+        if (country.languages && typeof country.languages === "object") {
+          const languageValues = Object.values(country.languages);
+          return languageValues.includes(selectedLanguage);
+        }
+        return false;
+      });
+      setFilteredCountries(filtered);
+      setSortedCountries(filtered);
     }
-  },[sortedCountries, allCountry])
+  }, [allCountry, selectedLanguage]);
+
+  useEffect(() => {
+    const countCountries = Math.ceil(sortedCountries.length / countriesPerPage);
+    setCurrentPage((prevPage) => Math.min(prevPage, countCountries));
+  }, [sortedCountries, countriesPerPage]);
+
 
   if (allCountry.length === 0) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
+
   return (
     <div className="CountryPanel">
       <div className="ListPanel">
         <div className="Panel">
-          <div className="ListName">Country List:</div>
+
+          <div className="ListName">{selectedLanguage} is spoken by</div>
           <div className="FindPanel">
             <Autocomplete
               value={selectedCountry}
               onChange={handleCountryChange}
-              options={allCountry}
+              options={filteredCountries}
               getOptionLabel={(option) => option.name.common}
               renderInput={(params) => (
                 <TextField
@@ -103,6 +118,13 @@ function Home() {
               )}
             />
           </div>
+          <div
+            className="defButton fixDefButton bText"
+            onClick={() => {navigate("/")
+            sessionStorage.setItem("NewPageNum", 1)}}
+          >
+            Go Home
+          </div>
         </div>
         <div className="bodyPanel">
           <CountryList
@@ -111,16 +133,17 @@ function Home() {
             currentPage={currentPage}
           />
           <SortPanel
-            allCountry={allCountry}
-            sortedCountries={sortedCountries}  
-            setSortedCountries={setSortedCountries}                     
+            allCountry={filteredCountries}
+            sortedCountries={sortedCountries}
+            setSortedCountries={setSortedCountries}
             setCurrentPage={setCurrentPage}
           />
         </div>
       </div>
       <div className="PaginationBox">
+        
         <StyledPagination
-          count={countCountries}
+          count={Math.ceil(sortedCountries.length / countriesPerPage)}
           page={currentPage}
           variant="outlined"
           shape="rounded"
@@ -131,4 +154,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default LangugePage;

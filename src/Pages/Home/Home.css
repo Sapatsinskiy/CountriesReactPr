@@ -69,6 +69,11 @@ body{
   cursor: pointer;
   margin-bottom: 1.2%;
 }
+.fixDefButton{
+  width: 10%;
+  height: 1%;
+  padding: 0.6% !important;
+}
 .sortPanel{
   display: flex;
   flex-direction: column;

@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
+import {useState, useEffect } from "react";
 import "./About.css";
 import * as React from "react";
 import Box from "@mui/material/Box";
@@ -6,47 +7,59 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-
-function About({ allCountry }) {
+import { Link } from 'react-router-dom';
+import axios from "axios";
+import Map from "../../Components/Map";
+function About() {
+  const[allCountry, setAllCountry] = useState([])
   const navigate = useNavigate();
   const { id } = useParams();
-  if (!Array.isArray(allCountry) || allCountry.length === 0) {
-    return <div>Loading...</div>;
-  }
-
   const findCountry = allCountry.find((country) => country.id == id);
-
-  let BorderCountries = "";
-  if (findCountry.borders) {
-    allCountry.forEach((item) => {
-      if (findCountry.borders.includes(item.cca3)) {
-        BorderCountries += item.name.common + ", ";
-      }
-    });
-  } else {
-    BorderCountries = "Nothing  ";
-  }
-
   const [value, setValue] = React.useState("1");
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  useEffect(() => {
+    const fetchCountryData = async () => {
+      try {
+        const result = await axios('http://46.101.96.179/all')
 
+        const resultAddId = result.data.map((item, i) => {
+          return{...item, id: i+1 }
+        })
+        setAllCountry(resultAddId)
+      }
+      catch{
+        setAllCountry('Error')
+      }   
+    }
+    fetchCountryData()
+  }, [])
+  if (allCountry.length === 0) {
+    return <div>Loading...</div>
+  }
+
+  let Bordered = [];
+  if(findCountry.borders){
+    findCountry.borders.forEach(function(border) {
+      allCountry.forEach(function(country) {
+        if (border === country.cca3) {
+          Bordered.push(country);
+        }
+      });
+    });
+  }
+
+  console.log(Bordered);
   return (
     <>
       <div className="countryInfoBlock">
         <div className="panelNav cardInfoTextHight">
           <div className="ButtonCustom" onClick={() => navigate(-1)}>
-            {" "}
-            Go back{" "}
+            Go back
           </div>
-          <div
-            className="ButtonCustom"
-            onClick={() => window.open(findCountry.maps.googleMaps)}
-          >
-            {" "}
-            Go to the map{" "}
+          <div className="ButtonCustom" onClick={() => navigate("/")}>
+            Go Home
           </div>
         </div>
 
@@ -80,6 +93,7 @@ function About({ allCountry }) {
                 >
                   <Tab label="Basic" value="1" />
                   <Tab label="More" value="2" />
+                  <Tab label = "Map" value="3"/>
                 </TabList>
               </Box>
               <TabPanel value="1" sx={{ marginTop: "-3%" }}>
@@ -88,19 +102,19 @@ function About({ allCountry }) {
                     <div className="block specBlock">
                       <div className="cardInfoTextLow">Country name:</div>
                       <div className="cardInfoTextHight">
-                        {findCountry.name.common}
+                        {findCountry.name?.common || "Nothing"}
                       </div>
                     </div>
                     <div className="block specBlock">
                       <div className="cardInfoTextLow">Country capital:</div>
                       <div className="cardInfoTextHight">
-                        {findCountry.capital}
+                        {findCountry.capital || "Nothing"}
                       </div>
                     </div>
                     <div className="block specBlock">
                       <div className="cardInfoTextLow">Population:</div>
                       <div className="cardInfoTextHight">
-                        {findCountry.population}
+                        {findCountry.population || "Nothing"}
                       </div>
                     </div>
                   </div>
@@ -108,105 +122,141 @@ function About({ allCountry }) {
                     <div className="block specBlock">
                       <div className="cardInfoTextLow">Region:</div>
                       <div className="cardInfoTextHight">
-                        {findCountry.region}
+                        {findCountry.region || "Nothing"}
                       </div>
                     </div>
                     <div className="block specBlock">
                       <div className="cardInfoTextLow">Subregion:</div>
                       <div className="cardInfoTextHight">
-                        {findCountry.subregion}
+                        {findCountry.subregion || "Nothing"}
                       </div>
                     </div>
                     <div className="block specBlock">
                       <div className="cardInfoTextLow">Languages:</div>
-                      <div className="cardInfoTextHight">
-                        {Object.values(findCountry.languages).join(", ")}
+                      <div className="cardInfoTextHight Rotate">
+                      {findCountry.languages
+                          ? Object.values(findCountry.languages).map(
+                              (item) => (
+                                <Link
+                                key={item}
+                                  className="buttonLan"
+                                  to={`/LanguagePage/${item}`}
+                                >
+                                  <div>{item}</div>
+                                </Link>
+                              )
+                            )
+                          : "Nothing"}
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="block specBlock">
+                <div className=" block specBlock">
                   <div className="cardInfoTextLow">Borders:</div>
-                  <div className="cardInfoTextHight">
-                    {BorderCountries.slice(0, -2)}
+                  <div className="Rotate blockMin">
+                  {Bordered.length==0 ?"Nothing" :Bordered.map((item)=>(
+                      <Link key={item.cca3} className=" buttonLan butLanCol" to={`/About/${item.id}`}>
+                        <div className="cardInfoTextHight">{item.name.common}</div>
+                      </Link>
+                      
+                    ))}
                   </div>
+
                 </div>
               </TabPanel>
               <TabPanel value="2" sx={{ marginTop: "-3%" }}>
                 <div className="Rotate">
                   <div className="infoBlock">
-                  <div className="block specBlock">
+                    <div className="block specBlock">
                       <div className="cardInfoTextLow">Official name:</div>
                       <div className="cardInfoTextHight">
-                        {findCountry.name.official}
+                        {findCountry.name?.official || "Nothing"}
                       </div>
                     </div>
-                  <div className="block specBlock">
+                    <div className="block specBlock">
                       <div className="cardInfoTextLow">Independent:</div>
                       <div className="cardInfoTextHight">
-                        {findCountry.independent == false ? "dependent" : "independence"}
+                        {findCountry.independent === false
+                          ? "Dependent"
+                          : "Independence"}
                       </div>
                     </div>
                     <div className="block specBlock">
                       <div className="cardInfoTextLow">Status:</div>
                       <div className="cardInfoTextHight">
-                        {findCountry.status}
+                        {findCountry.status || "Nothing"}
                       </div>
                     </div>
                     <div className="block specBlock">
-                      <div className="cardInfoTextLow">Member of the United Nations:</div>
+                      <div className="cardInfoTextLow">
+                        Member of the United Nations:
+                      </div>
                       <div className="cardInfoTextHight">
-                        {findCountry.unMember == false ? "not a member of the union" : "union member"}
+                        {findCountry.unMember === false
+                          ? "Not a member of the union"
+                          : "Union member"}
                       </div>
                     </div>
                     <div className="block specBlock">
                       <div className="cardInfoTextLow">Currencies:</div>
                       <div className="cardInfoTextHight">
-                        {Object.keys(findCountry.currencies).map(
-                          (currency, index) => (
-                            <React.Fragment key={currency}>
-                              {index > 0 && ", "}
-                              {findCountry.currencies[currency].name}
-                            </React.Fragment>
-                          )
-                        )}
+                        {findCountry.currencies
+                          ? Object.keys(findCountry.currencies).map(
+                              (currency, index) => (
+                                <React.Fragment key={currency}>
+                                  {index > 0 && ", "}
+                                  {findCountry.currencies[currency].name}
+                                </React.Fragment>
+                              )
+                            )
+                          : "Nothing"}
                       </div>
                     </div>
-                    
                   </div>
                   <div className="infoBlock">
-                  <div className="block specBlock">
+                    <div className="block specBlock">
                       <div className="cardInfoTextLow">Timezones:</div>
                       <div className="cardInfoTextHight">
-                        {findCountry.timezones.join(", ")}
+                        {findCountry.timezones
+                          ? findCountry.timezones.join(", ")
+                          : "Nothing"}
                       </div>
                     </div>
                     <div className="block specBlock">
                       <div className="cardInfoTextLow">Leading side:</div>
                       <div className="cardInfoTextHight">
-                        {findCountry.car.side}
+                        {findCountry.car?.side || "Nothing"}
                       </div>
                     </div>
                     <div className="block specBlock">
                       <div className="cardInfoTextLow">Start of week:</div>
                       <div className="cardInfoTextHight">
-                        {findCountry.startOfWeek}
+                        {findCountry.startOfWeek || "Nothing"}
                       </div>
                     </div>
                     <div className="block specBlock">
                       <div className="cardInfoTextLow">Landlocked:</div>
                       <div className="cardInfoTextHight">
-                        {findCountry.landlocked == false ? "has access to the sea" : "no access to the sea"}
+                        {findCountry.landlocked === false
+                          ? "Has access to the sea"
+                          : "No access to the sea"}
                       </div>
                     </div>
                     <div className="block specBlock">
                       <div className="cardInfoTextLow">Area:</div>
                       <div className="cardInfoTextHight">
-                      {findCountry.area} km&sup2;
+                        {findCountry.area
+                          ? `${findCountry.area} km²`
+                          : "Nothing"}
                       </div>
                     </div>
                   </div>
+                </div>
+              </TabPanel>
+              <TabPanel value="3"  sx={{ marginTop: "-3%" }}>
+                <div>
+                <Map element={findCountry}/>
                 </div>
               </TabPanel>
             </TabContext>
