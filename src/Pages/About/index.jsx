@@ -49,8 +49,6 @@ function About() {
       });
     });
   }
-
-  console.log(Bordered);
   return (
     <>
       <div className="countryInfoBlock">
@@ -137,13 +135,17 @@ function About() {
                       {findCountry.languages
                           ? Object.values(findCountry.languages).map(
                               (item) => (
-                                <Link
+                                <div
+                                onClick={() => {
+                                  navigate(`/LanguagePage/${item}`);
+                                  sessionStorage.setItem("NewPageNum", 1);
+                                }}
                                 key={item}
                                   className="buttonLan"
-                                  to={`/LanguagePage/${item}`}
+                                  
                                 >
                                   <div>{item}</div>
-                                </Link>
+                                </div>
                               )
                             )
                           : "Nothing"}

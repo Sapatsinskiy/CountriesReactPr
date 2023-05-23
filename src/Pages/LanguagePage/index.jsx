@@ -30,19 +30,7 @@ function LangugePage() {
   const { selectedLanguage } = useParams();
   const [allCountry, setAllCountry] = useState([]);
   const [sortedCountries, setSortedCountries] = useState([]);
-  const [currentPage, setCurrentPage] = useState(
-    Number(sessionStorage.getItem("NewPageNum"))
-  );
-    if (currentPage==0) {
-      setCurrentPage(1)
-      sessionStorage.setItem("NewPageNum", 1);
-    }
-
-
-  const nextListPage = (e, p) => {
-    sessionStorage.setItem("NewPageNum", p);
-    setCurrentPage(p);
-  };
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [countriesPerPage] = useState(10);
   const [filteredCountries, setFilteredCountries] = useState([]);
@@ -92,6 +80,17 @@ function LangugePage() {
     setCurrentPage((prevPage) => Math.min(prevPage, countCountries));
   }, [sortedCountries, countriesPerPage]);
 
+  useEffect(() => {
+    const newPageNum = Number(sessionStorage.getItem("NewPageNum"));
+    if (newPageNum) {
+      setCurrentPage(newPageNum);
+    }
+  }, []);
+
+  const nextListPage = (e, p) => {
+    sessionStorage.setItem("NewPageNum", p);
+    setCurrentPage(p);
+  };
 
   if (allCountry.length === 0) {
     return <div>Loading...</div>;
@@ -101,7 +100,6 @@ function LangugePage() {
     <div className="CountryPanel">
       <div className="ListPanel">
         <div className="Panel">
-
           <div className="ListName">{selectedLanguage} is spoken by</div>
           <div className="FindPanel">
             <Autocomplete
@@ -120,8 +118,10 @@ function LangugePage() {
           </div>
           <div
             className="defButton fixDefButton bText"
-            onClick={() => {navigate("/")
-            sessionStorage.setItem("NewPageNum", 1)}}
+            onClick={() => {
+              navigate("/");
+              sessionStorage.setItem("NewPageNum", 1);
+            }}
           >
             Go Home
           </div>
@@ -141,7 +141,6 @@ function LangugePage() {
         </div>
       </div>
       <div className="PaginationBox">
-        
         <StyledPagination
           count={Math.ceil(sortedCountries.length / countriesPerPage)}
           page={currentPage}
@@ -155,3 +154,4 @@ function LangugePage() {
 }
 
 export default LangugePage;
+
