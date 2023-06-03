@@ -122,6 +122,8 @@ function SortPanel({
       );
       setSortedCountries(tmp);
       setCurrentPage(1);
+      setCheker15(null)
+      setChekerAY(null)
     }
     if (currentContinent === item) {
       setCurrentContinent(null);
@@ -145,6 +147,8 @@ function SortPanel({
       );
       setSortedCountries(tmp);
       setCurrentPage(1);
+      setCheker15(null)
+      setChekerAY(null)
     }
     if (currentRegion === item) {
       const tmp = allCountry.filter(
