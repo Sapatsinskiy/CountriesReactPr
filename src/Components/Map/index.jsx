@@ -16,7 +16,7 @@ function Map({element}){
     return (
       <div className="map_container">
         {isLoaded && (
-          <GoogleMap mapContainerClassName="map" zoom={3} center={defaultCenter}>
+          <GoogleMap mapContainerClassName="map" zoom={5} center={defaultCenter}>
             <Marker position={defaultCenter} />
           </GoogleMap>
         )}

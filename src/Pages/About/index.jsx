@@ -95,14 +95,15 @@ function About() {
                 </TabList>
               </Box>
               <TabPanel value="1" sx={{ marginTop: "-3%" }}>
-                <div className="Rotate">
-                  <div className="infoBlock">
-                    <div className="block specBlock">
+                <div className="block specBlock">
                       <div className="cardInfoTextLow">Country name:</div>
                       <div className="cardInfoTextHight">
                         {findCountry.name?.common || "Nothing"}
                       </div>
                     </div>
+                <div className="Rotate">
+                  <div className="infoBlock">
+                    
                     <div className="block specBlock">
                       <div className="cardInfoTextLow">Country capital:</div>
                       <div className="cardInfoTextHight">
@@ -129,9 +130,12 @@ function About() {
                         {findCountry.subregion || "Nothing"}
                       </div>
                     </div>
-                    <div className="block specBlock">
+
+                  </div>
+                </div>
+                <div className="block specBlock ">
                       <div className="cardInfoTextLow">Languages:</div>
-                      <div className="cardInfoTextHight Rotate">
+                      <div className="cardInfoTextHight Rotate blockMin">
                       {findCountry.languages
                           ? Object.values(findCountry.languages).map(
                               (item) => (
@@ -151,9 +155,6 @@ function About() {
                           : "Nothing"}
                       </div>
                     </div>
-                  </div>
-                </div>
-
                 <div className=" block specBlock">
                   <div className="cardInfoTextLow">Borders:</div>
                   <div className="Rotate blockMin">
