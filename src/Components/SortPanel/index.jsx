@@ -7,6 +7,7 @@ function SortPanel({
   sortedCountries,
   setSortedCountries,
   setCurrentPage,
+  setAllCountry,
   countriesPerPage,
   currentPage
 }) {
@@ -20,7 +21,7 @@ function SortPanel({
   const [activeRegion, setActiveRegion] = useState(null);
   const [regions, setRegion] = useState({});
   const sort15_1 = () => {
-    const tmp = sortedCountries.sort(function (a, b) {
+    let tmp = sortedCountries.sort(function (a, b) {
       if (a.id > b.id) {
         return -1;
       }
@@ -31,10 +32,20 @@ function SortPanel({
     });
     setSortedCountries(tmp);
     setCheker15(false);
+      tmp = allCountry.sort(function (a, b) {
+      if (a.id > b.id) {
+        return -1;
+      }
+      if (a.id < b.id) {
+        return 1;
+      }
+      return 0;
+    });
+    setAllCountry(tmp);
   };
 
   const sort15_2 = () => {
-    const tmp = sortedCountries.sort(function (a, b) {
+    let tmp = sortedCountries.sort(function (a, b) {
       if (a.id < b.id) {
         return -1;
       }
@@ -45,6 +56,16 @@ function SortPanel({
     });
     setSortedCountries(tmp);
     setCheker15(true);
+    tmp = allCountry.sort(function (a, b) {
+      if (a.id < b.id) {
+        return -1;
+      }
+      if (a.id > b.id) {
+        return 1;
+      }
+      return 0;
+    });
+    setAllCountry(tmp);
   };
 
   const sort15 = () => {
@@ -62,7 +83,7 @@ function SortPanel({
   };
 
   const sortAB_1 = () => {
-    const tmp = sortedCountries.sort(function (a, b) {
+    let tmp = sortedCountries.sort(function (a, b) {
       if (a.name.common < b.name.common) {
         return -1;
       }
@@ -73,6 +94,16 @@ function SortPanel({
     });
     setSortedCountries(tmp);
     setChekerAY(false);
+    tmp = allCountry.sort(function (a, b) {
+      if (a.name.common < b.name.common) {
+        return -1;
+      }
+      if (a.name.common > b.name.common) {
+        return 1;
+      }
+      return 0;
+    });
+    setAllCountry(tmp);
   };
 
   const sortAB = () => {
@@ -85,7 +116,7 @@ function SortPanel({
       sortAB_1();
     }
     if (chekerAY === false) {
-      const tmp = sortedCountries.sort(function (a, b) {
+      let tmp = sortedCountries.sort(function (a, b) {
         if (a.name.common > b.name.common) {
           return -1;
         }
@@ -95,6 +126,16 @@ function SortPanel({
         return 0;
       });
       setSortedCountries(tmp);
+       tmp = allCountry.sort(function (a, b) {
+        if (a.name.common > b.name.common) {
+          return -1;
+        }
+        if (a.name.common < b.name.common) {
+          return 1;
+        }
+        return 0;
+      });
+      setAllCountry(tmp)
       setChekerAY(true);
     }
   };
@@ -122,8 +163,7 @@ function SortPanel({
       );
       setSortedCountries(tmp);
       setCurrentPage(1);
-      setCheker15(null)
-      setChekerAY(null)
+
     }
     if (currentContinent === item) {
       setCurrentContinent(null);
@@ -147,8 +187,7 @@ function SortPanel({
       );
       setSortedCountries(tmp);
       setCurrentPage(1);
-      setCheker15(null)
-      setChekerAY(null)
+
     }
     if (currentRegion === item) {
       const tmp = allCountry.filter(
@@ -180,6 +219,7 @@ function SortPanel({
       return 0;
     });
     setSortedCountries(tmp);
+    setAllCountry(tmp)
   };
 
   return (
@@ -196,7 +236,7 @@ function SortPanel({
           className={`defButton bText ${chekerAY !== null ? "activeBut" : ""}`}
           onClick={() => sortAB()}
         >
-          {chekerAY ? "Sort A-Y" : "Sort Y-A"}
+          {chekerAY ? "Sort Y-A" : "Sort A-Y"}
         </div>
         <div
           className={`defButton bText ${

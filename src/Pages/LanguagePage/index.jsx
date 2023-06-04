@@ -131,7 +131,7 @@ function LangugePage() {
             sortedCountries={sortedCountries}  
             setSortedCountries={setSortedCountries}                     
             setCurrentPage={setCurrentPage}
-
+            setAllCountry={setAllCountry}
             countriesPerPage={countriesPerPage}
             currentPage={currentPage}
           />
