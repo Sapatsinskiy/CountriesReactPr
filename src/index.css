@@ -12,45 +12,48 @@ a {
   color: rgb(79, 209, 246);
   font-size: 36px;
 }
-.rightItem{
+.fixName {
+  width: 50%;
+}
+.rightItem {
   font-size: 20px;
 }
-.bText{
+.bText {
   font-size: 14px;
 }
-@media (max-width: 1250px){
-  .rightItem{
+@media (max-width: 1250px) {
+  .rightItem {
     font-size: 17px;
   }
 }
-@media (max-width: 1080px){
-  .rightItem{
+@media (max-width: 1080px) {
+  .rightItem {
     font-size: 16px;
   }
-  .bText{
+  .bText {
     font-size: 12px;
   }
 }
-@media (max-width: 1000px){
-  .rightItem{
+@media (max-width: 1000px) {
+  .rightItem {
     font-size: 14px;
   }
-  .bText{
+  .bText {
     font-size: 10px;
   }
 }
-@media (max-width: 875px){
-  .rightItem{
+@media (max-width: 875px) {
+  .rightItem {
     font-size: 12px;
   }
 }
-@media (max-width: 800px){
-  .rightItem{
+@media (max-width: 800px) {
+  .rightItem {
     font-size: 16px;
   }
 }
-@media (max-width: 660px){
-  .rightItem{
+@media (max-width: 660px) {
+  .rightItem {
     font-size: 14px;
   }
   .ListName {
@@ -60,26 +63,29 @@ a {
     text-align: center;
     font-size: 28px;
   }
+  .fixName {
+    width: 85%;
+  }
 }
-@media (max-width: 505px){
-  .rightItem{
+@media (max-width: 505px) {
+  .rightItem {
     font-size: 10px;
   }
   .ListName {
     font-size: 24px;
   }
-  .bText{
+  .bText {
     font-size: 6px;
   }
 }
-@media (max-width: 370px){
-  .rightItem{
+@media (max-width: 370px) {
+  .rightItem {
     font-size: 10px;
   }
   .ListName {
     font-size: 22px;
   }
-  .bText{
+  .bText {
     font-size: 6px;
   }
 }

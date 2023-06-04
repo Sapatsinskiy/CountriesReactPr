@@ -88,7 +88,7 @@ function Home() {
         <div className="Panel">
           <div className="ListName">Country List:</div>
           <div className="FindPanel">
-            <Autocomplete
+            <Autocomplete  
               value={selectedCountry}
               onChange={handleCountryChange}
               options={allCountry}

@@ -98,7 +98,9 @@ function LangugePage() {
     <div className="CountryPanel">
       <div className="ListPanel">
         <div className="Panel">
-          <div className="ListName">{selectedLanguage} is spoken by</div>
+          <div className="ListName fixName">
+            {selectedLanguage} is spoken by:
+          </div>
           <div className="FindPanel">
             <Autocomplete
               value={selectedCountry}
@@ -124,18 +126,15 @@ function LangugePage() {
             Go Home
           </div>
         </div>
-
-
-          <SortPanel
-            allCountry={filteredCountries}
-            sortedCountries={sortedCountries}  
-            setSortedCountries={setSortedCountries}                     
-            setCurrentPage={setCurrentPage}
-            setAllCountry={setAllCountry}
-            countriesPerPage={countriesPerPage}
-            currentPage={currentPage}
-          />
-
+        <SortPanel
+          allCountry={filteredCountries}
+          sortedCountries={sortedCountries}
+          setSortedCountries={setSortedCountries}
+          setCurrentPage={setCurrentPage}
+          setAllCountry={setAllCountry}
+          countriesPerPage={countriesPerPage}
+          currentPage={currentPage}
+        />
       </div>
       <div className="PaginationBox">
         <StyledPagination
@@ -151,4 +150,3 @@ function LangugePage() {
 }
 
 export default LangugePage;
-
